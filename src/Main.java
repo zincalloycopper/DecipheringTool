@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Main{
     public static void main(String[] args){
        /* String[] tetras= new String[Math.powExact(26,4)]; //The number of tetragrams in english is 26^4, or 456976
@@ -13,8 +11,9 @@ public class Main{
         System.out.println(tetras[index]);
 
         */
-        //CorpusCreator CC = new CorpusCreator();
-       // CC.CreateCorpus();
+        CorpusCreator CC = new CorpusCreator();
+        //CC.CreateTetraCorpus();
+        CC.CreateMonoCorpus();
     }
 }
 
