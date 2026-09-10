@@ -49,7 +49,6 @@ public class CorpusCreator {
         Arrays.sort(words);
         //sorts the tetragrams alphabetically(ready for hashing for quick lookup))
     }
-
     private void WriteToFile(){
 
         Path Read = Path.of("TetrasWithFrequency.txt");
@@ -67,6 +66,7 @@ public class CorpusCreator {
            }
 
             Writer.write(Existing);
+           Writer.close();
         } catch (IOException e){
             System.out.println("No tetragramFrequencyFile found");
             File TETRAS = new File("TetrasWithFrequency.txt");
@@ -128,7 +128,9 @@ public class CorpusCreator {
                 MonosToSave = MonosToSave+C+"/"+Monos.get(C)/CorpusLen+"#";
 
             }
+            System.out.println(MonosToSave);
             Writer.write(MonosToSave);
+            Writer.close();
         } catch (IOException e) {
             System.out.println("NO MONOGRAM FILE FOUND");
             File MONOS = new File("MonosWithFrequency.txt");
@@ -139,6 +141,7 @@ public class CorpusCreator {
             }
         }
     }
+
     public void CreateTetraCorpus(){
 
         WriteTetras();
