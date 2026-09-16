@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.math.*;
 public class Database {
-    private int[] Tetrafrequencies = new int[Math.powExact(26,4)];
+    private MathsHandler Maths = new MathsHandler();
+    private int[] TetraFrequencies = new int[Math.powExact(26,4)];
+    private double[] TetraLogFrequencies = new double[Math.powExact(26,4)];
     private double[] MonoFrequencies = new double[26];
     private void LoadFrequencies(){
 
@@ -24,7 +26,8 @@ public class Database {
                         System.out.println(Temp[0] + " " + Temp[1]);
                         Hash.SetTetra(Temp[0]);
                         int index = Hash.getB26Val();
-                        Tetrafrequencies[index] = Integer.valueOf(Temp[1]);
+                        TetraFrequencies[index] = Integer.valueOf(Temp[1]);
+                        TetraLogFrequencies[index] = Maths.FetchLogOfTetra(Temp[0],TetraFrequencies);
                     }
                     catch (ArrayIndexOutOfBoundsException A){
                         System.out.println("End of Tetragrams");//any incomplete tetragrams would break the program otherwise, and these should be discounted anyway
@@ -70,10 +73,13 @@ public class Database {
     }
 
     public int[] FetchTetras(){
-        return Tetrafrequencies;
+        return TetraFrequencies;
     }
     public double[] FetchMonos(){
         return MonoFrequencies;
+    }
+    public double[] FetchTetraLogs(){
+        return TetraLogFrequencies;
     }
 
 }
