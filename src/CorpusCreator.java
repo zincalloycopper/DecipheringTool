@@ -51,12 +51,12 @@ public class CorpusCreator {
     }
     private void WriteToFile(){
 
-        Path Read = Path.of("TetrasWithFrequency.txt");
+
 
         try{
             FileWriter Writer = new FileWriter("TetrasWithFrequency.txt");
-           String Existing = Files.readString(Read);
-           //ensures the file is not overwritten
+           String Existing = new String();
+
            String Temp;// temporary string initialised
            for(String S:words){
                Temp = S+"/"+tetragrams.get(S);

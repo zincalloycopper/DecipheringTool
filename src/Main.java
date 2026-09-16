@@ -11,9 +11,12 @@ public class Main{
         System.out.println(tetras[index]);
 
         */
-        CorpusCreator CC = new CorpusCreator();
+        //CorpusCreator CC = new CorpusCreator();
         //CC.CreateTetraCorpus();
-        CC.CreateMonoCorpus();
+        //CC.CreateMonoCorpus();
+
+        Database database = new Database();
+        database.INITIALISE();
     }
 }
 

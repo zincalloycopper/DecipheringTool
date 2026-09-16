@@ -1,5 +1,5 @@
 public class HashFunction {
-    //this function is designed to increase lookup speed by using direct access
+    //this function is designed to increase lookup speed by using direct access, O(1) lookup speed
     private String Tetra;
     private int B26Val;
 
