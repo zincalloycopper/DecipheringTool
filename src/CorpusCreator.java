@@ -19,7 +19,7 @@ public class CorpusCreator {
         try {
             String CorpusText = Files.readString(Read);
             CorpusText = CorpusText.replaceAll("\\s","");
-            for (int i=0; i<CorpusText.length()-4;i++){
+            for (int i=0; i<CorpusText.length()-3;i++){
                 String Tetra =CorpusText.substring(i,i+4).toUpperCase();
                 if (!((tetragrams.containsKey(Tetra)))){
                     //checks if the hashmap does NOT contain the tetragram already

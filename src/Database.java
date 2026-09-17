@@ -23,11 +23,13 @@ public class Database {
                 for(String S:TempTetrasWithFrequencies){
                     Temp = S.split("/");
                     try {
-                        System.out.println(Temp[0] + " " + Temp[1]);
+                        //System.out.println(Temp[0] + " " + Temp[1]);
                         Hash.SetTetra(Temp[0]);
                         int index = Hash.getB26Val();
                         TetraFrequencies[index] = Integer.valueOf(Temp[1]);
                         TetraLogFrequencies[index] = Maths.FetchLogOfTetra(Temp[0],TetraFrequencies);
+
+                        System.out.println(TetraLogFrequencies[index]);
                     }
                     catch (ArrayIndexOutOfBoundsException A){
                         System.out.println("End of Tetragrams");//any incomplete tetragrams would break the program otherwise, and these should be discounted anyway

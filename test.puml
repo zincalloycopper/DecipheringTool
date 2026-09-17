@@ -1,0 +1,95 @@
+@startuml
+class DataManager {
++ {static} void CreateCorpus()
++ {static} void main(String[])
+}
+
+class HashFunction {
+- String Tetra
+- int B26Val
+- int hash(String)
++ int getB26Val()
++ void SetTetra(String)
+}
+
+
+class CorpusCreator {
+- String[] words
+- Map<String,Integer> tetragrams
+- Map<Character,Double> Monos
+- char[] Alpha
+- double CorpusLen
+- void WriteTetras()
+- void SortTetras()
+- void WriteToFile()
+- void GetMonosFromCorpus()
+- void SortMonos()
+- void WriteMonos()
++ void CreateTetraCorpus()
++ void CreateMonoCorpus()
+}
+
+
+class LinguisticDataManager {
+- StringHandler SHandler
+- FitnessManager FManager
++ void FetchData(String)
+}
+
+
+class Main {
++ {static} void main(String[])
+}
+
+class Database {
+- MathsHandler Maths
+- int[] TetraFrequencies
+- double[] TetraLogFrequencies
+- double[] MonoFrequencies
+- void LoadFrequencies()
+- void LoadMonos()
++ void INITIALISE()
++ int[] FetchTetras()
++ double[] FetchMonos()
++ double[] FetchTetraLogs()
+}
+
+
+class FitnessManager {
+- MathsHandler Maths
+- Database DB
+- double Fitness
+- double TetraFitness
+- double[] ExpectedLogTetragrams
+- void MonoFitness(double[],double[])
+- void TetragramFitness(String,int[])
++ void SetMonoFitness(double[])
++ void SetTetraFitness(String,int[])
++ double GetTetraFitness()
++ double getMonoFitness()
+}
+
+
+class MathsHandler {
++ double FetchLogOfTetra(String,int[])
++ double DotProduct(double[],double[])
++ double FetchFreqOfMono(char,double[])
+}
+
+class StringHandler {
+- double[] LocalMonogramFrequencies
+- int[] LocalTetragramFrequencies
+- HashFunction Hash
+- String CipherText
+- Map<String,Integer> TempMap
+- Map<Character,Integer> TempAlpha
+- void SetLocalTetragramFrequencies()
+- void SetLocalMonogramFrequencies()
++ void setCipherText(String)
++ String GetCiphertext()
++ int[] getLocalTetragramFrequencies()
++ double[] getLocalMonogramFrequencies()
+}
+
+
+@enduml

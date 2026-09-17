@@ -54,4 +54,6 @@ public String GetCiphertext(){
     public int[] getLocalTetragramFrequencies() {
         return LocalTetragramFrequencies;
     }
+
+    public double[] getLocalMonogramFrequencies(){return LocalMonogramFrequencies;}
 }
