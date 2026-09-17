@@ -34,19 +34,23 @@ public class StringHandler {
             }
         }
         for(Map.Entry<Character,Integer> E: TempAlpha.entrySet()){
+            System.out.println(E.getKey());
             LocalMonogramFrequencies[E.getKey()-65]=E.getValue();
         }
     }
     public void setCipherText(String Ciphertext) {
         CipherText = Ciphertext.replaceAll("\\p{Punct}","");
-        CipherText = CipherText.replaceAll("\\S","");
+        CipherText = CipherText.replaceAll("\\s","");
         CipherText = CipherText.replaceAll("\\d","");
+        CipherText = CipherText.toUpperCase();
         //validation to remove whitespace, numbers and punctuation
         SetLocalTetragramFrequencies();
         SetLocalMonogramFrequencies();
         //find the local data
     }
-
+public String GetCiphertext(){
+        return CipherText;
+}
     public int[] getLocalTetragramFrequencies() {
         return LocalTetragramFrequencies;
     }

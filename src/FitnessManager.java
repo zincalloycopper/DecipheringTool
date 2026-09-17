@@ -20,7 +20,9 @@ public class FitnessManager {
 
             CurrentTetra= Ciphertext.substring(i,i+4);
             Hash.SetTetra(CurrentTetra);
+
             index = Hash.getB26Val();
+            System.out.println(CurrentTetra+" "+index);
             TetraFitness = TetraFitness+(actualTetragrams[index]*ExpectedLogTetragrams[index]);
 
         }
@@ -29,7 +31,9 @@ public class FitnessManager {
     public void SetMonoFitness(double[] ActualMono){
         MonoFitness(DB.FetchMonos(),ActualMono);
     }
-
+public void SetTetraFitness(String CipherText,int[] actualTetragrams){
+        TetragramFitness(CipherText,actualTetragrams,DB.FetchTetraLogs());
+}
     public double GetTetraFitness(){
         return TetraFitness;
     }

@@ -1,10 +1,10 @@
 public class MathsHandler {
 
-private Database DB = new Database();
-private StringHandler SH = new StringHandler();
-private int[] ExpectedTetras = DB.FetchTetras();
-private double[] ExpectedTetraLogs = DB.FetchTetraLogs();
-private double[] ExpectedMonos = DB.FetchMonos();
+//private Database DB = new Database();
+//private StringHandler SH = new StringHandler();
+//private int[] ExpectedTetras = DB.FetchTetras();
+//private double[] ExpectedTetraLogs = DB.FetchTetraLogs();
+//private double[] ExpectedMonos = DB.FetchMonos();
 
     public double FetchLogOfTetra (String Tetra, int[] TetragramFrequencies){
         double Value;
@@ -15,7 +15,7 @@ private double[] ExpectedMonos = DB.FetchMonos();
             Value = Math.log(TetragramFrequencies[LocalHash.getB26Val()]);
             return Value;
         } catch(NullPointerException N){
-            return -1.0;//any values that do not occur (Which should technically have a frequency of 0) will return -1 to be less than the log of non-zero tetragrams
+            return -100.0;//any values that do not occur (Which should technically have a frequency of 0) will return -1 to be less than the log of non-zero tetragrams
         }
 
 
