@@ -16,8 +16,7 @@ public class Main{
         //CC.CreateTetraCorpus();
         //CC.CreateMonoCorpus();
 
-        Database database = new Database();
-        database.INITIALISE();
+
         String CipherText = UIS.nextLine();
         LinguisticDataManager LDM = new LinguisticDataManager();
         LDM.FetchData(CipherText);

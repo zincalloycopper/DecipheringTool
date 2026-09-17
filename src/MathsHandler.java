@@ -15,6 +15,7 @@ public class MathsHandler {
             Value = Math.log(TetragramFrequencies[LocalHash.getB26Val()]);
             return Value;
         } catch(NullPointerException N){
+            System.out.println("Cannot take log of 0");
             return -100.0;//any values that do not occur (Which should technically have a frequency of 0) will return -1 to be less than the log of non-zero tetragrams
         }
 
