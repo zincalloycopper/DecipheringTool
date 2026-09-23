@@ -34,7 +34,7 @@ public class StringHandler {
             }
         }
         for(Map.Entry<Character,Integer> E: TempAlpha.entrySet()){
-            System.out.println(E.getKey());
+            //System.out.println(E.getKey());
             LocalMonogramFrequencies[E.getKey()-65]=E.getValue();
         }
     }

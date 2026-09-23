@@ -1,10 +1,5 @@
 public class MathsHandler {
 
-//private Database DB = new Database();
-//private StringHandler SH = new StringHandler();
-//private int[] ExpectedTetras = DB.FetchTetras();
-//private double[] ExpectedTetraLogs = DB.FetchTetraLogs();
-//private double[] ExpectedMonos = DB.FetchMonos();
 
     public double FetchLogOfTetra (String Tetra, int[] TetragramFrequencies){
         double Value;

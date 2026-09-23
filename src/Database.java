@@ -6,6 +6,10 @@ public class Database {
     private int[] TetraFrequencies = new int[Math.powExact(26,4)];
     private double[] TetraLogFrequencies = new double[Math.powExact(26,4)];
     private double[] MonoFrequencies = new double[26];
+
+   Database(){
+        INITIALISE();
+    }
     private void LoadFrequencies(){
 
         HashFunction Hash = new HashFunction();
@@ -29,7 +33,7 @@ public class Database {
                         TetraFrequencies[index] = Integer.valueOf(Temp[1]);
                         TetraLogFrequencies[index] = Maths.FetchLogOfTetra(Temp[0],TetraFrequencies);
 
-                        System.out.println(TetraLogFrequencies[index]);
+                        //System.out.println(TetraLogFrequencies[index]);
                     }
                     catch (ArrayIndexOutOfBoundsException A){
                         System.out.println("End of Tetragrams");//any incomplete tetragrams would break the program otherwise, and these should be discounted anyway
@@ -69,9 +73,12 @@ public class Database {
 
     }
 
-    public void INITIALISE(){
+   private void INITIALISE(){
+        long startTime = System.currentTimeMillis();
         LoadFrequencies();
         LoadMonos();
+        long EndTime = System.currentTimeMillis();
+        System.out.println("Initialised in "+(EndTime-startTime)+" milliseconds");
     }
 
     public int[] FetchTetras(){

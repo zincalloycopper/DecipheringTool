@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import java.util.Scanner;
 public class Main{
     public static void main(String[] args){
@@ -16,9 +17,10 @@ public class Main{
         //CC.CreateTetraCorpus();
         //CC.CreateMonoCorpus();
 
+       Database DB = new Database();
 
         String CipherText = UIS.nextLine();
-        LinguisticDataManager LDM = new LinguisticDataManager();
+        LinguisticDataManager LDM = new LinguisticDataManager(DB);
         LDM.FetchData(CipherText);
 
     }
