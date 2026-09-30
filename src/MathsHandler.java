@@ -19,7 +19,7 @@ public class MathsHandler {
 
     public double DotProduct(double[] Vector1, double[] Vector2){
         double Sum = 0;
-        if(Vector1.length> Vector2.length|| Vector2.length<Vector1.length){
+        if(Vector1.length> Vector2.length|| Vector2.length>Vector1.length){
           System.out.println("VECTOR DIMENSIONS DO NOT MATCH");
         }
         else{

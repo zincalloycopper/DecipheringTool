@@ -9,14 +9,17 @@ public class LinguisticDataManager {
     }
 
     private FitnessManager FManager;
-    public void FetchData(String Ciphertext){
-        SHandler.setCipherText(Ciphertext);
+    public void FetchData(String Ciphertext) {
+        double MonoFitness = 0;
+        double TetraFitness = 0;
         long startTime = System.currentTimeMillis();
-        FManager.SetTetraFitness(SHandler.GetCiphertext(),SHandler.getLocalTetragramFrequencies());
-        FManager.SetMonoFitness(SHandler.getLocalMonogramFrequencies());
+            SHandler.setCipherText(Ciphertext);
 
-        double MonoFitness = FManager.getMonoFitness();
-        double TetraFitness = FManager.GetTetraFitness();
+        FManager.SetTetraFitness(SHandler.GetCiphertext(), SHandler.getLocalTetragramFrequencies());
+        FManager.SetMonoFitness(SHandler.getLocalMonogramFrequencies());
+        MonoFitness = FManager.getMonoFitness();
+        TetraFitness = FManager.GetTetraFitness();
+
         long endTime = System.currentTimeMillis();
         System.out.println("Found in "+(endTime-startTime)+" ms");
         System.out.println("Monogram fitness of "+MonoFitness+ " Tetragram fitness of "+TetraFitness);

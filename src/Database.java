@@ -57,7 +57,7 @@ public class Database {
             if(MONOS.equals("")){
                 CC.CreateMonoCorpus();
             }
-            else{
+            else{// this is the loader for the data, due to the way it is saved.
                 String[] TempMonoFrequencies = MONOS.split("#");
                 for(String S: TempMonoFrequencies){
                     Temp = S.split("/");
