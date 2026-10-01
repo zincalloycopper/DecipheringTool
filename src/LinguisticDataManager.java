@@ -25,4 +25,5 @@ public class LinguisticDataManager {
         System.out.println("Monogram fitness of "+MonoFitness+ " Tetragram fitness of "+TetraFitness);
 
     }
+
 }

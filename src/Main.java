@@ -22,6 +22,8 @@ public class Main{
         String CipherText = UIS.nextLine();
         LinguisticDataManager LDM = new LinguisticDataManager(DB);
         LDM.FetchData(CipherText);
+        MonoAlphabeticDecryptor MD = new MonoAlphabeticDecryptor(CipherText,DB);
+        System.out.println(MD.DecryptCipher());
 
     }
 }
