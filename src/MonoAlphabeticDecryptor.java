@@ -9,7 +9,8 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
     public ArrayList<Double> BestFitnesses = new ArrayList<>();
     Random random = new Random();
     public String DecryptCipher() {
-
+        int restarts = 0;
+        int maxrestarts = 50;
         double bestFitness = 0.0;
         double testFitness = 0.0;
         String Plaintext = Ciphertext;
@@ -24,7 +25,7 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
             char tempchar;
             int probability = 1;
             String Temp;
-            while (count < 50000) {
+            while (count < 5000) {
                 X = random.nextInt(StartKey.length);
                 Y = random.nextInt(StartKey.length);
                 tempchar = Key[X];
@@ -47,7 +48,7 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
                         Key = Arrays.copyOf(LocalStartKey, LocalStartKey.length);
 
                 }
-                if(count >40000 && bestFitness<3){
+                if(count >4000 && restarts<maxrestarts){
                     LocalStartKey = generateRandomKey();
                     Key = Arrays.copyOf(LocalStartKey, LocalStartKey.length);
 
@@ -55,6 +56,7 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
                     bestFitness = getTetraFitness(Plaintext);
 
                     count = 0;
+                    restarts++;
                 }
             }
 

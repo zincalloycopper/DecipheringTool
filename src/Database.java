@@ -6,7 +6,7 @@ public class Database {
     private int[] TetraFrequencies = new int[Math.powExact(26,4)];
     private double[] TetraLogFrequencies = new double[Math.powExact(26,4)];
     private double[] MonoFrequencies = new double[26];
-
+    private int length;
    Database(){
         INITIALISE();
     }
@@ -16,9 +16,11 @@ public class Database {
         Path ReadTetra = Path.of("TetrasWithFrequency.txt");
         CorpusCreator CC = new CorpusCreator();
         String[] Temp = new String[2];
+        Path Length = Path.of("CorpusToRead");
 
         try{
             String TETRAS = Files.readString(ReadTetra);
+            length = Files.readString(Length).length();
             if(TETRAS.equals("")){ //ensures that the file is not empty;
                 CC.CreateTetraCorpus();
             }
@@ -31,7 +33,7 @@ public class Database {
                         Hash.SetTetra(Temp[0]);
                         int index = Hash.getB26Val();
                         TetraFrequencies[index] = Integer.valueOf(Temp[1]);
-                        TetraLogFrequencies[index] = Maths.FetchLogOfTetra(Temp[0],TetraFrequencies);
+                        TetraLogFrequencies[index] = Maths.FetchLogOfTetra(Temp[0],TetraFrequencies,length);
 
                         //System.out.println(TetraLogFrequencies[index]);
                     }

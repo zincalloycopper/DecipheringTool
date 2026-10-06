@@ -12,16 +12,16 @@ public class LinguisticDataManager {
     public void FetchData(String Ciphertext) {
         double MonoFitness = 0;
         double TetraFitness = 0;
-        long startTime = System.currentTimeMillis();
-            SHandler.setCipherText(Ciphertext);
 
+            SHandler.setCipherText(Ciphertext);
+        long startTime = System.nanoTime();
         FManager.SetTetraFitness(SHandler.GetCiphertext(), SHandler.getLocalTetragramFrequencies());
-        FManager.SetMonoFitness(SHandler.getLocalMonogramFrequencies());
-        MonoFitness = FManager.getMonoFitness();
+        //FManager.SetMonoFitness(SHandler.getLocalMonogramFrequencies());
+        //MonoFitness = FManager.getMonoFitness();
         TetraFitness = FManager.GetTetraFitness();
 
-        long endTime = System.currentTimeMillis();
-        System.out.println("Found in "+(endTime-startTime)+" ms");
+        long endTime = System.nanoTime();
+        System.out.println("Found in "+(endTime-startTime)+" nanoseconds");
         System.out.println("Monogram fitness of "+MonoFitness+ " Tetragram fitness of "+TetraFitness);
 
     }

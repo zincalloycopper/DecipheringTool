@@ -1,13 +1,13 @@
 public class MathsHandler {
 
 
-    public double FetchLogOfTetra (String Tetra, int[] TetragramFrequencies){
+    public double FetchLogOfTetra (String Tetra, int[] TetragramFrequencies,int length){
         double Value;
         HashFunction LocalHash = new HashFunction();
         LocalHash.SetTetra(Tetra);
 
         try{
-            Value = Math.log(TetragramFrequencies[LocalHash.getB26Val()]);
+            Value = Math.log((TetragramFrequencies[LocalHash.getB26Val()])/(double)(length-3));
             return Value;
         } catch(NullPointerException N){
             System.out.println("Cannot take log of 0");

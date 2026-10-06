@@ -1,7 +1,7 @@
 public class FitnessManager {
     private  MathsHandler Maths = new MathsHandler();
     private Database DB;
-
+    HashFunction Hash = new HashFunction();
     private double Fitness;
     private double TetraFitness;
     private double[] ExpectedLogTetragrams;
@@ -19,23 +19,21 @@ public class FitnessManager {
 
 
     private void TetragramFitness(String Ciphertext, int[] actualTetragrams){
-        HashFunction Hash = new HashFunction();
+
+        char[] CurrentTetraArr = new char[4];
         double sum = 0.0;
         String CurrentTetra;
         int index = 0;
         TetraFitness = 0.0;
         for(int i=0; i <Ciphertext.length()-3;i++){
-
-            CurrentTetra= Ciphertext.substring(i,i+4);
-            Hash.SetTetra(CurrentTetra);
-
-            index = Hash.getB26Val();
+            index = (Ciphertext.charAt(i)-'A')*26*26*26+(Ciphertext.charAt(i+1)-'A')*26*26+(Ciphertext.charAt(i+2)-'A')*26+Ciphertext.charAt(i+3)-'A';
             //System.out.println(CurrentTetra+" "+index);
           if (ExpectedLogTetragrams[index]!=0) {
               TetraFitness = TetraFitness + ExpectedLogTetragrams[index];
+              //System.out.println(ExpectedLogTetragrams[index]);
           }
           else{
-              TetraFitness += -100;
+              TetraFitness += -10;
           }
             //System.out.println(actualTetragrams[index]);
             //System.out.println(ExpectedLogTetragrams[index]);
