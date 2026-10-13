@@ -33,66 +33,31 @@ public class Main {
         String CipherText = UIS.nextLine();
         LinguisticDataManager LDM = new LinguisticDataManager(DB);
         LDM.FetchData(CipherText);
+
         MonoAlphabeticDecryptor MD = new MonoAlphabeticDecryptor(CipherText, DB);
-        //System.out.println(MD.DecryptCipher());
-        Path Read = Path.of("CorpusToRead");
-        Map<Integer, Double> testvalues = new HashMap<>();
-        Random rand = new Random();
-        FitnessManager TestFitness = new FitnessManager(DB);
-        StringHandler TestStringHandler = new StringHandler();
-        try {
-            String CorpusText = Files.readString(Read);
 
-            System.out.println("Creating Graph. . .");
-            for (int i = 1; i < 5000; i++) {
-                int Start = rand.nextInt(0, CorpusText.length());
-                try {
-                    TestStringHandler.setCipherText(CorpusText.substring(Start, Start + i));
-                } catch (StringIndexOutOfBoundsException e) {
-                    Start = Start - i;
-                    TestStringHandler.setCipherText(CorpusText.substring(Start, Start + i));
-                }
-                CipherText = TestStringHandler.GetCiphertext();
-                testvalues.put(i, TestFitness.GetTetraFitness());
-                TestFitness.SetTetraFitness(CipherText, TestStringHandler.getLocalTetragramFrequencies());
-                //System.out.println(i + " " + TestFitness.GetTetraFitness());
-                testvalues.put(i, TestFitness.GetTetraFitness());
-            }
-            CipherText = CorpusText;
-            LDM.FetchData(CipherText);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //System.out.println(testvalues);
-        XYSeries series = new XYSeries("Tetragram Fitness");
+        long starTime = System.currentTimeMillis();
+       String plaintext = MD.DecryptCipher();
+        long endTime = System.currentTimeMillis();
+        System.out.println(endTime-starTime);
+        System.out.println(plaintext);
 
-// Add data points from your map
-        for (Map.Entry<Integer, Double> entry : testvalues.entrySet()) {
-            series.add(entry.getKey(), entry.getValue());
-        }
+        XYSeries Fitnesses = new XYSeries("Fitness");
+        XYSeries Iterations = new XYSeries("Iterations");
+     for(int i =0; i< MD.Indexes.size();i++){
+         Fitnesses.add(MD.Indexes.get(i), MD.BestFitnesses.get(i));
+         System.out.println(MD.Indexes.get(i)+" "+ MD.BestFitnesses.get(i));
+         //Iterations.add(MD.BestFitnesses.get(i), MD.Indexes.get(i));
 
-// Create dataset
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series);
-
-// Create chart
-        JFreeChart chart = ChartFactory.createXYLineChart(
-                "Tetragram Fitness vs String Length", // Chart title
-                "String Length",                      // X-axis label
-                "Tetragram Fitness",                  // Y-axis label
-                dataset,                              // Data
-                PlotOrientation.VERTICAL,
-                true,                                 // Include legend
-                true,                                 // Tooltips
-                false                                 // URLs
-        );
-
-// Display chart in a frame
-        ChartFrame frame = new ChartFrame("Fitness Chart", chart);
-        frame.pack();
-        frame.setVisible(true);
-
+     }
+XYSeriesCollection Dataset = new XYSeriesCollection();
+Dataset.addSeries(Fitnesses);
+Dataset.addSeries(Iterations);
+JFreeChart Chart = ChartFactory.createXYLineChart("Iterations vs fitness","Iterations","Fitness",Dataset);
+ChartFrame Frame = new ChartFrame("Trace of Hill climber",Chart);
+Frame.pack();
+Frame.setDefaultCloseOperation(Frame.EXIT_ON_CLOSE);
+Frame.setVisible(true);
+    }
     }
 
-
-}

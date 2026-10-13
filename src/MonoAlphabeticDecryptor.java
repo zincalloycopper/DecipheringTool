@@ -7,6 +7,8 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
         super(Ciphertext, DB);
     }
     public ArrayList<Double> BestFitnesses = new ArrayList<>();
+    public ArrayList<Integer> Indexes = new ArrayList<>();
+    private int TotalCount;
     Random random = new Random();
     public String DecryptCipher() {
         int restarts = 0;
@@ -25,7 +27,7 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
             char tempchar;
             int probability = 1;
             String Temp;
-            while (count < 5000) {
+            while (count < 25000) {
                 X = random.nextInt(StartKey.length);
                 Y = random.nextInt(StartKey.length);
                 tempchar = Key[X];
@@ -33,12 +35,18 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
                 Key[Y] = tempchar;
                 Temp = Decrypt(Key, Ciphertext);
                 testFitness = getTetraFitness(Temp);
-                if (testFitness > bestFitness) {
+                if (testFitness > bestFitness)
+                {
+                    Indexes.add(TotalCount);
                     count = 0;
                     bestFitness = testFitness;
                     BestFitnesses.add(bestFitness);
+
                     Plaintext = Temp;
                     LocalStartKey = Arrays.copyOf(Key, Key.length);
+                    if( bestFitness >-11.5){
+                        return Plaintext;
+                    }
                     //System.out.println(bestFitness);
                     //System.out.println(Key);
                     //System.out.println(Plaintext);
@@ -48,7 +56,7 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
                         Key = Arrays.copyOf(LocalStartKey, LocalStartKey.length);
 
                 }
-                if(count >4000 && restarts<maxrestarts){
+                if(count >24998 && bestFitness<-11.5){
                     LocalStartKey = generateRandomKey();
                     Key = Arrays.copyOf(LocalStartKey, LocalStartKey.length);
 
@@ -58,7 +66,9 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
                     count = 0;
                     restarts++;
                 }
+                TotalCount++;
             }
+
 
         System.out.println(BestFitnesses);
         return Plaintext;

@@ -33,7 +33,7 @@ public class FitnessManager {
               //System.out.println(ExpectedLogTetragrams[index]);
           }
           else{
-              TetraFitness += -10;
+              TetraFitness += -100;
           }
             //System.out.println(actualTetragrams[index]);
             //System.out.println(ExpectedLogTetragrams[index]);
