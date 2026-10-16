@@ -3,8 +3,8 @@ import java.util.*;
 
 
 public class MonoAlphabeticDecryptor extends DecryptionParent{
-    MonoAlphabeticDecryptor(String Ciphertext, Database DB) {
-        super(Ciphertext, DB);
+    MonoAlphabeticDecryptor(String Ciphertext, Database DB,double[] IoCs) {
+        super(Ciphertext, DB,IoCs);
     }
     public ArrayList<Double> BestFitnesses = new ArrayList<>();
     public ArrayList<Integer> Indexes = new ArrayList<>();

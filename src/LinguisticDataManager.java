@@ -9,12 +9,15 @@ public class LinguisticDataManager {
         this.DataBase = DB;
          this.FManager = new FitnessManager(this.DataBase);
     }
-
+    public double[] IOCs = new double[50];
+    public double MonoFitness;
+    public double TetraFitness;
+    public double IOC;
     private FitnessManager FManager;
     private MathsHandler Mhandler = new MathsHandler();
     public void FetchData(String Ciphertext) {
-        double MonoFitness = 0;
-        double TetraFitness = 0;
+         MonoFitness = 0;
+         TetraFitness = 0;
             long basicstarttime = System.nanoTime();
             SHandler.setCipherText(Ciphertext);
             long basicendtime = System.nanoTime();
@@ -26,12 +29,15 @@ public class LinguisticDataManager {
         TetraFitness = FManager.GetTetraFitness();
 
         long endTime = System.nanoTime();
-        double IOC = Mhandler.IndexOfCoincidence(SHandler.GetCiphertext());
+        IOC = Mhandler.IndexOfCoincidence(SHandler.GetCiphertext());
         System.out.println(Mhandler.PeriodIOC(SHandler.GetCiphertext(), 4));
-        double[] IOCs = new double[26];
-        for (int i =1; i<27;i++){
-            System.out.println(Mhandler.PeriodIOC(SHandler.GetCiphertext(), i));
+
+        for (int i =1; i<51;i++){
+            //System.out.println(Mhandler.PeriodIOC(SHandler.GetCiphertext(), i));
             IOCs[i-1] = Mhandler.PeriodIOC(SHandler.GetCiphertext(), i);
+        }
+        for(double I: IOCs){
+
         }
         //System.out.println(Arrays.stream(IOCs).max());
         System.out.println("Found in "+(endTime-startTime)+" nanoseconds");
