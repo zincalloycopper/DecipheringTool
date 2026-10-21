@@ -11,6 +11,7 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
     private int TotalCount;
     Random random = new Random();
     public String DecryptCipher() {
+        System.out.println("Starting Decrypt");
         int restarts = 0;
         int maxrestarts = 50;
         double bestFitness = 0.0;

@@ -9,6 +9,7 @@ public class LinguisticDataManager {
         this.DataBase = DB;
          this.FManager = new FitnessManager(this.DataBase);
     }
+
     public double[] IOCs = new double[50];
     public double MonoFitness;
     public double TetraFitness;
@@ -36,9 +37,12 @@ public class LinguisticDataManager {
             //System.out.println(Mhandler.PeriodIOC(SHandler.GetCiphertext(), i));
             IOCs[i-1] = Mhandler.PeriodIOC(SHandler.GetCiphertext(), i);
         }
+        DecryptionParent DP = new DecryptionParent(SHandler.GetCiphertext(), DataBase,IOCs);
+        DP.FindPeriodTwist(SHandler.GetCiphertext(), 50);
         for(double I: IOCs){
 
         }
+
         //System.out.println(Arrays.stream(IOCs).max());
         System.out.println("Found in "+(endTime-startTime)+" nanoseconds");
         System.out.println("Monogram fitness of "+MonoFitness+ " Tetragram fitness of "+TetraFitness+" IOC of "+IOC);

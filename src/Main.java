@@ -46,25 +46,30 @@ String plaintext;
             //for(int i =1; i< LDM.IOCs.length+1;i++){
                 //IoCs.add(i,LDM.IOCs[i-1]);
             //}
-            XYChart IndexChart = new XYChartBuilder().width(600).height(600).title("Index of coincidence curve").xAxisTitle("period").yAxisTitle("Index of coincidence").build();
-            IndexChart.getStyler().setLegendPosition(Styler.LegendPosition.OutsideE);
-            XChartPanel indexPanel = new XChartPanel<>(IndexChart);
-            indexPanel.setCursorEnabled(true);
-            IndexChart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Area);
-            IndexChart.addSeries("Index of coincidence",LDM.IOCs);
-            IndexChart.getStyler().setCursorColor(Color.red);
-            IndexChart.getStyler().setCursorFontColor(Color.blue);
-            IndexChart.getStyler().setPlotBackgroundColor(Color.BLACK);
-            IndexChart.getStyler().setPlotGridLinesColor(Color.white);
-            IndexChart.getStyler().setChartBackgroundColor(Color.black);
-            IndexChart.getStyler().setChartFontColor(Color.white);
-            IndexChart.getStyler().setAxisTickLabelsColor(Color.white);
-            IndexChart.getStyler().setLegendBackgroundColor(Color.black);
-            JFrame frame = new JFrame();
-            frame.add(indexPanel);
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setVisible(true);
+            double[] nums = new double[50];
+            for(int i =1; i <51; i++){
+                nums[i-1]=i;
+            }
+            double[] tempIoCs = new double[50];
+            for(int i  = 0; i < LDM.IOCs.length;i++){
+                tempIoCs[i] = LDM.IOCs[i];
+            }
+                CategoryChart IndexChart = new CategoryChartBuilder().width(600).height(600).title("Index of coincidence curve").xAxisTitle("period").yAxisTitle("Index of coincidence").build();
+                IndexChart.getStyler().setLegendPosition(Styler.LegendPosition.OutsideE);
+                IndexChart.addSeries("Index of coincidence", nums, tempIoCs);
+                IndexChart.getStyler().setYAxisMin(1.0/26.0);
+                IndexChart.getStyler().setPlotBackgroundColor(Color.BLACK);
+                IndexChart.getStyler().setPlotGridLinesColor(Color.white);
+                IndexChart.getStyler().setChartBackgroundColor(Color.black);
+                IndexChart.getStyler().setChartFontColor(Color.white);
+                IndexChart.getStyler().setAxisTickLabelsColor(Color.white);
+                IndexChart.getStyler().setLegendBackgroundColor(Color.black);
+                XChartPanel Panel = new XChartPanel<>(IndexChart);
+                JFrame frame = new JFrame();
+                frame.add(Panel);
+                frame.setVisible(true);
+                frame.pack();
+                frame.setDefaultCloseOperation(3);
 
         } else{
             plaintext = CipherText+" ///NOT A SUBSTITUTION CIPHER";
