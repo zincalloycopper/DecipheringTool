@@ -57,7 +57,7 @@ public class MonoAlphabeticDecryptor extends DecryptionParent{
                         Key = Arrays.copyOf(LocalStartKey, LocalStartKey.length);
 
                 }
-                if(count >24998 && bestFitness<-11.5){
+                if(count >24998 && bestFitness<-10){
                     LocalStartKey = generateRandomKey();
                     Key = Arrays.copyOf(LocalStartKey, LocalStartKey.length);
 

@@ -23,78 +23,79 @@ protected int period;
     return LocalPeriod;
 }
 */
-     public int FindPeriodTwist(String CipherText, int MaxVal) {
+     public int FindPeriodTwist(String Text, int MaxVal) {
          System.out.println("Finding period");
-        int period = 0;
-        double[] averagesOfSignatures = new double[26];
+         int Period = 0;
+         double[] EnglishSignature = DB.FetchMonos();
+         Arrays.sort(EnglishSignature);
 
-        for (int BlockSize = 1; BlockSize < MaxVal + 1; BlockSize++) {
-            String[] slices = new String[BlockSize];
+         String[][] slices = new String[MaxVal][];
+         for(int i = 1; i<=MaxVal;i++){
+             slices[i-1] = SHandler.SliceString(Text,i);
+             //System.out.println(Arrays.toString(slices[i-1]));
+         }
 
-            StringBuilder Slicer = new StringBuilder();
-            for (int S = 0; S < slices.length; S++) {
+        double[][] Signatures = new double[MaxVal][26];
+double[] temp = new double[26];
+         for(int i = 0; i < slices.length; i++) {
 
-                for (int i = 0; i < Ciphertext.length(); i++) {
-                    if (i % BlockSize == S) {
-                        Slicer.append(CipherText.charAt(i));
-                    }
-                }
-                String Slice = Slicer.toString();
-                slices[S] = Slice;
-                Slicer.setLength(0);
-            }
-            for(String S:slices){
-                //System.out.println(S);
-                SHandler.setCipherText(S);
-                double[] Temps = SHandler.getLocalMonogramFrequencies();
-                for(int i = 0; i <Temps.length;i++){
-                    Temps[i] /= S.length();
-                }
-                //System.out.println(Arrays.toString(Temps));
-                for (int i =0; i<26;i++){
-                    averagesOfSignatures[i] +=Temps[i];
-                }
-            }
-        }
-        for(int i =0; i<averagesOfSignatures.length;i++){
-            averagesOfSignatures[i]/=MaxVal;
-        }
-        Arrays.sort(averagesOfSignatures);
-System.out.println(Arrays.toString(averagesOfSignatures));
-        double[] EnglishSignature = DB.FetchMonos();
-        Arrays.sort(EnglishSignature);
-        System.out.println(Arrays.toString(EnglishSignature));
-        double[] Periods = new double[MaxVal];
-        double leftSum = 0;
-        double rightSum = 0;
-        for(int i = 0; i <MaxVal;i++){
-            for (int X = 0; X<12; X++){
-                leftSum+=(EnglishSignature[X]-averagesOfSignatures[X]);
+             double[] averageSignature = new double[26];
 
-            }
-            for(int Y = 12; Y<26;Y++){
-                rightSum+=(averagesOfSignatures[Y]-EnglishSignature[Y]);
+             for (int j = 0; j < slices[i].length; j++) {
 
-            }
-            System.out.print(leftSum + "//" + rightSum+"//");
-            Periods[i] = leftSum+rightSum;
-            System.out.println(Periods[i]);
-            leftSum = 0;
-            rightSum = 0;
-        }
-       double Temp = Arrays.stream(Periods).max().getAsDouble();
-        System.out.println(Temp);
-         for(int i = 0; i <Periods.length;i++){
-             System.out.println(Periods[i]);
-             if( Periods[i] == Temp){
-                 period = i;
+                 SHandler.setCipherText(slices[i][j]);
+
+                 temp = SHandler.getLocalMonogramFrequencies();
+
+                 for (int k = 0; k < 26; k++) {
+                     temp[k] /= slices[i][j].length();
+
+                 }
+                 Arrays.sort(temp);
+                 for (int k = 0; k < 26; k++) {
+                     averageSignature[k] += temp[k];
+                 }
              }
 
+                 for (int k = 0; k < 26; k++) {
+                     averageSignature[k] /= slices[i].length;
+                 }
 
-         }
-         System.out.println(period);
-        return period;
+
+                 Signatures[i] = averageSignature;
+             }
+             double[] twists = new double[MaxVal];
+             double leftsum;
+             double rightsum;
+             for (int i = 0; i < Signatures.length; i++) {
+                 leftsum = 0;
+                 rightsum = 0;
+                 for (int x = 0; x < 13; x++) {
+                     leftsum += (-Signatures[i][x] + EnglishSignature[x]);
+                 }
+                 for (int x = 13; x < 26; x++) {
+                     rightsum += (Signatures[i][x] - EnglishSignature[x]);
+                 }
+                 twists[i] = leftsum + rightsum;
+                 twists[i]*=50;
+             }
+    for(int i =0; i<twists.length;i++){
+        if(twists[i]>0){
+            Period = i+1;
+            return Period;
+        }
     }
+         for(int i = 0; i < twists.length;i++){
+             //System.out.println(twists[i]);
+             System.out.println("Period "+(i+1)+" = "+twists[i]);
+         }
+
+
+double difference = 0;
+
+
+         return  Period;
+     }
 protected double getTetraFitness(String Ciphertext){
     FManager.SetTetraFitness(Ciphertext,SHandler.getLocalTetragramFrequencies());
     return FManager.GetTetraFitness();

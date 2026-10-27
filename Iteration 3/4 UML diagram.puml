@@ -1,0 +1,137 @@
+@startuml
+class PolyalphabeticDecryptor {
+~ Database DB
+~ double[] IoCs
+- MonoAlphabeticDecryptor MD
+- int period
++ String Plaintext
+- String DecryptCipher()
+}
+
+
+class HashFunction {
+- String Tetra
+- int B26Val
+- int hash(String)
++ int getB26Val()
++ void SetTetra(String)
+}
+
+
+class CorpusCreator {
+- String[] words
+- Map<String,Integer> tetragrams
+- Map<Character,Double> Monos
+- char[] Alpha
+- double CorpusLen
+- void WriteTetras()
+- void SortTetras()
+- void WriteToFile()
+- void GetMonosFromCorpus()
+- void SortMonos()
+- void WriteMonos()
++ void CreateTetraCorpus()
++ void CreateMonoCorpus()
+}
+
+
+class LinguisticDataManager {
+- StringHandler SHandler
+- Database DataBase
++ double[] IOCs
++ double MonoFitness
++ double TetraFitness
++ double IOC
+- FitnessManager FManager
+- MathsHandler Mhandler
++ void FetchData(String)
+}
+
+
+class Main {
++ {static} void main(String[])
+}
+
+class MonoAlphabeticDecryptor {
++ ArrayList<Double> BestFitnesses
++ ArrayList<Integer> Indexes
+- int TotalCount
+~ Random random
++ String DecryptCipher()
+- String Decrypt(char[],String)
+- char[] generateRandomKey()
+}
+
+
+class Database {
+- MathsHandler Maths
+- int[] TetraFrequencies
+- double[] TetraLogFrequencies
+- double[] MonoFrequencies
+- int length
+- void LoadFrequencies()
+- void LoadMonos()
+- void INITIALISE()
++ int[] FetchTetras()
++ double[] FetchMonos()
++ double[] FetchTetraLogs()
+}
+
+
+class FitnessManager {
+- MathsHandler Maths
+- Database DB
+~ HashFunction Hash
+- double Fitness
+- double TetraFitness
+- double[] ExpectedLogTetragrams
+- void MonoFitness(double[],double[])
+- void TetragramFitness(String,int[])
++ void SetMonoFitness(double[])
++ void SetTetraFitness(String,int[])
++ double GetTetraFitness()
++ double getMonoFitness()
+}
+
+
+class DecryptionParent {
+# String Ciphertext
+# char[] StartKey
+# FitnessManager FManager
+# StringHandler SHandler
+# int period
+# double getTetraFitness(String)
+}
+
+
+class MathsHandler {
+~ char[] Alphabet
++ double FetchLogOfTetra(String,int[],int)
++ double DotProduct(double[],double[])
++ double IndexOfCoincidence(String)
++ double PeriodIOC(String,int)
++ double FetchFreqOfMono(char,double[])
+}
+
+
+class StringHandler {
+- double[] LocalMonogramFrequencies
+- int[] LocalTetragramFrequencies
+- HashFunction Hash
+- String CipherText
+- Map<String,Integer> TempMap
+- Map<Character,Integer> TempAlpha
+- void SetLocalTetragramFrequencies()
+- void SetLocalMonogramFrequencies()
++ void setCipherText(String)
++ String GetCiphertext()
++ int[] getLocalTetragramFrequencies()
++ double[] getLocalMonogramFrequencies()
+}
+
+
+
+
+DecryptionParent <|-- PolyalphabeticDecryptor
+DecryptionParent <|-- MonoAlphabeticDecryptor
+@enduml

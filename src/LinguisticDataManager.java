@@ -38,7 +38,8 @@ public class LinguisticDataManager {
             IOCs[i-1] = Mhandler.PeriodIOC(SHandler.GetCiphertext(), i);
         }
         DecryptionParent DP = new DecryptionParent(SHandler.GetCiphertext(), DataBase,IOCs);
-        DP.FindPeriodTwist(SHandler.GetCiphertext(), 50);
+      int  period = DP.FindPeriodTwist(SHandler.GetCiphertext(), 50);
+        System.out.println(period);
         for(double I: IOCs){
 
         }

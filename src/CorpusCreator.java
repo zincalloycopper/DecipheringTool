@@ -85,7 +85,7 @@ public class CorpusCreator {
             String CorpusText = Files.readString(Read);
             CorpusText =CorpusText.replaceAll("\\s","");
             CorpusLen=CorpusText.length();
-            CorpusText.toUpperCase();
+           CorpusText = CorpusText.toUpperCase();
             for (char a : CorpusText.toCharArray()){
                 if (!((Monos.containsKey(a)))){
                     //checks if the hashmap does NOT contain the letter already

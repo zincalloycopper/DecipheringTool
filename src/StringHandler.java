@@ -23,6 +23,7 @@ public class StringHandler {
             Hash.SetTetra(E.getKey());
             LocalTetragramFrequencies[Hash.getB26Val()]=E.getValue();
         }
+        TempMap.clear();
     }
     private void SetLocalMonogramFrequencies(){
         for(char C: CipherText.toCharArray()){
@@ -37,6 +38,7 @@ public class StringHandler {
             //System.out.println(E.getValue());
             LocalMonogramFrequencies[E.getKey()-65]=E.getValue();
         }
+        TempAlpha.clear();
     }
     public void setCipherText(String Ciphertext) {
         String UpperCipher = Ciphertext.toUpperCase();
@@ -54,6 +56,24 @@ public class StringHandler {
         SetLocalMonogramFrequencies();
         //find the local data
     }
+    public String[] SliceString(String Text, int BlockSize) {
+        String[] slices = new String[BlockSize];
+
+        StringBuilder Slicer = new StringBuilder();
+        for (int S = 0; S < slices.length; S++) {
+
+            for (int i = 0; i < Text.length(); i++) {
+                if (i % BlockSize == S) {
+                    Slicer.append(Text.charAt(i));
+                }
+            }
+            String Slice = Slicer.toString();
+            slices[S] = Slice;
+            Slicer.setLength(0);
+        }
+        return  slices;
+    }
+
 public String GetCiphertext(){
         return CipherText;
 }
